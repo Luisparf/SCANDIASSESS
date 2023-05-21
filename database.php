@@ -1,4 +1,4 @@
-<?php	
+<?php
 /** O nome do banco de dados*/
 define('DB_NAME', 'scandiweb');
 /** Usuário do banco de dados MySQL */
@@ -6,29 +6,26 @@ define('DB_USER', 'root');
 /** Senha do banco de dados MySQL */
 define('DB_PASSWORD', 'root');
 /** nome do host do MySQL */
-define('DB_HOST', 'localhost');	
+define('DB_HOST', 'localhost');
 
 date_default_timezone_set('America/Sao_Paulo');
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-if (!isset($_SESSION)) {
-	session_start();
-}
 
 
 function open_database() {
-	
+
 	try {
 		$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-		
+
 		if ($conn->connect_error) {
 			echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
 			return null;
-		} 
+		}
 
-		//echo "conectado com sucesso";	
+		//echo "conectado com sucesso";
 
 		//mysqli_set_charset($conn,"utf8");
 	} catch (Exception $e) {
@@ -56,10 +53,10 @@ function find($table = null, $id = null, $aux = null){
             if ($result->num_rows > 0) {
                 $found = $result->fetch_assoc();
             }
-        
+
         } else {
-            $sql = "SELECT * FROM $table";  
-            
+            $sql = "SELECT * FROM $table";
+
             $result = $database->query($sql);
             if ($result->num_rows > 0) {
                 $found = $result->fetch_all(MYSQLI_ASSOC);
@@ -95,7 +92,7 @@ function save($table = null, $data = null){
     }
     $columns = rtrim($columns, ',');
     $values = rtrim($values, ',');
-   
+
     $sql = "INSERT INTO $table($columns) VALUES ($values);";
     //echo $sql;
     //die;
@@ -104,12 +101,12 @@ function save($table = null, $data = null){
             if ($database->query($sql)) {
                 $_SESSION['message'] = 'Registro cadastrado com sucesso.';
                 $_SESSION['type'] = 'success';
-                
+
             } else {
                 $_SESSION['message'] = generateError(mysqli_errno($database));
                 $_SESSION['type'] = 'danger';
             }
-        
+
         } else {
             $_SESSION['message'] = generateError(mysqli_errno($database));
             $_SESSION['type'] = 'danger';
@@ -134,10 +131,10 @@ function remove($table = null, $id = null, $stop = null){
     $database = open_database();
     try {
         if ($id) {
-        
+
             $sql = "DELETE FROM " . $table . " WHERE id = " . $id;
             $sql_S = "SELECT * FROM " . $table . " WHERE id = " . $id;
-            
+
             $result = json_encode($database->query($sql_S)->fetch_assoc());
             $database->query($sql);
             $return = $database->affected_rows;
@@ -164,12 +161,12 @@ function remove($table = null, $id = null, $stop = null){
 function update($table = null, $id = 0, $data = null){
     $database = open_database();
     $items = null;
-    
+
 
     $sql = "UPDATE $table SET $data WHERE id=$id;";
     $sql_S = "SELECT * FROM $table WHERE id=$id;";
-    
-    
+
+
     try {
         $result = json_encode($database->query($sql_S)->fetch_assoc());
         $database->query($sql);
@@ -181,7 +178,7 @@ function update($table = null, $id = 0, $data = null){
         $_SESSION['message'] = 'Nao foi possivel realizar a operacao.';
         $_SESSION['type'] = 'danger';
     }
-    
+
     close_database($database);
 }*/
 

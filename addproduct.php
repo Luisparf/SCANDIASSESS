@@ -57,41 +57,75 @@
 </style>
 <body>
 
-  <main id="main" class="main">
 
-    <div class="row align-items-center">
+  <main id="main" class="main ">
+
+      <div class="row align-items-center">
         <div class="col pagetitle">
-          <h1>Product List</h1>
+          <h1>Product Add</h1>
           <nav>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="index.php">Start</a></li>
-              <li class="breadcrumb-item active">Product List</li>
+              <li class="breadcrumb-item active">Product Add</li>
             </ol>
           </nav>
         </div>
         <div class="col align-end">
-            <a href="addproduct.php">
-              <button type="button" class="btn btn-primary">Add</button>
-            </a>
-            <button type="button" class="btn btn-primary" id="massdel">Mass Delete</button>
+          <button type="button" class="btn btn-primary">Save</button>
+          <a href="index.php">
+            <button type="button" class="btn btn-primary" id="massdel">Cancel</button>
+          </a>
         </div>
     </div>
 
     <div class="line"></div>
 
+    <section class="section col-sm-6 ">
+    <div class="card ">
+            <div class="card-body ">
+              <h5 class="card-title">New Product</h5>
 
-    <section class="section dashboard">
-    <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Card with titles, buttons, and links</h5>
-              <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <p class="card-text"><a href="#" class="btn btn-primary">Button</a></p>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
+              <!-- Horizontal Form -->
+              <form >
+
+              <!-- <div class="form-container"> -->
+                  <div class="row mb-3">
+                    <label for="sku" class="col-sm-2 col-form-label">SKU</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="sku" required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="name" class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="name" required>
+                    </div>
+                  </div>
+                  <div class="row mb-3">
+                    <label for="price" class="col-sm-2 col-form-label">Price</label>
+                    <div class="col-sm-10">
+                      <input type="number"  step="0.01" class="form-control" id="price" required>
+                    </div>
+                  </div>
+
+                  <div class="row mb-3" >
+                      <label for="categoria">Categoria*</label>
+
+                      <select id="categoria"  class="form-select" required>
+                          <option value="fisica" selected>Pessoa Física</option>
+                          <option value="juridica">Pessoa Jurídica</option>
+                      </select>
+                  </div>
+
+
+              <!-- </div> -->
+
+              </form><!-- End Horizontal Form -->
+
             </div>
+          </div>
 
-    </div>
+
 
     </section>
       <?php include "html/footer.php" ?>
