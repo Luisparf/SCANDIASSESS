@@ -70,7 +70,7 @@
           </nav>
         </div>
         <div class="col align-end">
-            <a href="addproduct.php">
+            <a href="product/add.php">
               <button type="button" class="btn btn-primary">Add</button>
             </a>
             <button type="button" class="btn btn-primary" id="massdel">Mass Delete</button>
