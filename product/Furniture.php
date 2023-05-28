@@ -1,50 +1,75 @@
 <?php
 
+
 require_once 'Product.php';
+require_once '../inc/DataBase.php';
+// use Product;
 
 class Furniture extends Product {
-  protected $height;
-  protected $width;
-  protected $length;
+    protected $height;
+    protected $width;
+    protected $length;
 
-  public function __construct($name, $price, $height, $width, $length ) {
-    parent::__construct($name, $price);
-    $this->height = $height;
-    $this->width = $width;
-    $this->length = $length;
-  }
+    public function __construct($sku, $name, $price, $type, $height, $width, $length ) {
+      parent::__construct($sku, $name, $price, $type);
+      $this->height = $height;
+      $this->width = $width;
+      $this->length = $length;
+    }
 
-  public function displayProductDetails() {
-    parent::displayProductDetails();
-    echo "Dimesions: " . $this->height . "x" .$this->width . "x" . $this->length . " <br>";
-  }
+      // Setters
+    public function setHeight($height) {
+      $this->height = $height;
+    }
 
-  public function calculateShippingCost() {
-    // Custom logic to calculate shipping cost for furniture
-    return 10;
-  }
+    public function setWidth($width) {
+      $this->width = $width;
+    }
 
-  public function save(){
-    // Connect to the database (replace with your database credentials)
-      $conn = new mysqli('localhost', 'root', '', 'scandiweb');
+    public function setLength($length) {
+      $this->length = $length;
+    }
 
-      // Check for connection errors
-      if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-      }
+    // Getters
+    // public function getSKU(){
+    //   return $this->sku
+    // }
 
-      // Prepare the SQL statement
-      $stmt = $conn->prepare("INSERT INTO products (sku, name, price, type, author, material, size) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    public function getHeight() {
+      return $this->height;
+    }
 
-      // Bind the parameters
-      $stmt->bind_param("ssdsssd", $this->sku, $this->name, $this->price, $this->type, $this->author, $this->material, $this->size);
+    public function getWidth() {
+      return $this->width;
+    }
 
-      // Execute the statement
-      $stmt->execute();
+    public function getLength() {
+      return $this->length;
+    }
 
-      // Close the statement and connection
-      $stmt->close();
+    public function displayProductDetails() {
+      parent::displayProductDetails();
+      echo "Dimesions: " . $this->getHeight() . "x" .$this->getWidth()  . "x" . $this->getLength() . " <br>";
+    }
 
-      $conn->close();
-      }
+    public function calculateShippingCost() {
+      // Custom logic to calculate shipping cost for furniture
+      return 10;
+    }
+
+    // Save method
+    public function save(){
+        $db = new DataBase();
+        $data = array(
+          'sku' => $this->getSKU(),
+          'name' => $this->getName(),
+          'price' => $this->getPrice(),
+          'type' => $this->getType(),
+          'height' => $this->getHeight(),
+          'width' => $this->getWidth(),
+          'length' => $this->getLength()
+         );
+        $db->save('furniture', $data);
+        $db->closeConnection();
+    }
 }

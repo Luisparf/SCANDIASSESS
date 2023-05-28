@@ -90,25 +90,25 @@
           <h5 class="card-title">New Product</h5>
 
           <!-- Horizontal Form -->
-          <form id="product_form">
+          <form id="product_form" method="POST">
 
             <!-- <div class="form-container"> -->
             <div class="row mb-3">
               <label for="sku" class="col-sm-2 col-form-label">SKU*</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="sku" placeholderrequired>
+                <input type="text" class="form-control" id="sku" name="sku" required>
               </div>
             </div>
             <div class="row mb-3">
               <label for="name" class="col-sm-2 col-form-label">Name*</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" id="name" required>
+                <input type="text" class="form-control" id="name" name="name" required>
               </div>
             </div>
             <div class="row mb-3">
               <label for="price" class="col-sm-2 col-form-label">Price*</label>
               <div class="col-sm-10">
-                <input type="number" step="0.01" class="form-control" id="price" required>
+                <input type="number" step="0.01" class="form-control" id="price" name="price" required>
               </div>
             </div>
 
@@ -117,7 +117,7 @@
               <label for="productType" class="col-sm-2 col-form-label">Type*</label>
               <div class="col-sm-10">
 
-                <select id="productType" class="form-select" onchange="changeType()" aria-label="State" required>
+                <select id="productType" name="productType" class="form-select" onchange="changeType()" aria-label="State" required>
                   <option  value="none" selected></option>
                   <option id="DVD" value="dvd" >DVD</option>
                   <option id="Furniture" value="furniture">Furniture</option>
@@ -150,30 +150,42 @@
 <script type="text/javascript">
 
 
-  document.getElementById("saveBtn").addEventListener("click", saveForm);
+  $(document).ready(function() {
+    $("#saveBtn").click(function() {
+      // Get the form data
+      var formData = $("#product_form").serialize();
 
-  // Function to handle saving the form
-  function saveForm() {
-    // Get the form element
-    var form = document.getElementById("product_form");
+      // Send an AJAX request to the server
+      $.ajax({
+        url: "addProduct.php",
+        type: "POST",
+        data: formData,
+        // dataType: "json",
+        success: function(response) {
+          console.log("Response" + response) ;
+          window.location.replace('../index.php')
+        },
+        error: function(xhr, status, error) {
+          // Handle AJAX error
+          console.error("AJAX request failed: " + error);
+          //  window.location.replace('../index.php')
 
-    // Perform any validation or processing as needed
-
-    // Submit the form
-    form.submit();
-  }
+        }
+      });
+    });
+  });
 
   const typeActions = {
       dvd: () => {
-        document.getElementById("inputContainer").innerHTML = '<div class="row mb-2"><label for="size" class="col-sm-2 col-form-label">Size (MB)</label><div class="col-sm-8"><input type="number" class="form-control" id="size" placeholder="0.00" placeholder="placeholder" required><span><strong>Please, provide size in MB.</strong></span></div></div>';
+        document.getElementById("inputContainer").innerHTML = '<div class="row mb-2"><label for="size" class="col-sm-2 col-form-label">Size (MB)</label><div class="col-sm-8"><input type="number" class="form-control" id="size" name="size" placeholder="0.00" placeholder="placeholder" required><span><strong>Please, provide size in MB.</strong></span></div></div>';
 
       },
       furniture: () => {
          document.getElementById("inputContainer").innerHTML =
-         '<div class="row mb-3"><label for="height" class="col-sm-2 col-form-label">Height (CM)</label><div class="col-sm-8"><input type="number" step="0.01" class="form-control" id="height" placeholder="0.00" required></div></div><div class="row mb-3"><label for="width" class="col-sm-2 col-form-label">Width (CM)</label><div class="col-sm-8"><input type="number" step="0.01" class="form-control" id="width" placeholder="0.00" required></div></div><div class="row mb-3"><label for="length" class="col-sm-2 col-form-label">Length (CM)</label><div class="col-sm-8"><input type="number" step="0.01" class="form-control" id="length" placeholder="0.00" required><span><strong>Please, provide dimesions in HxWxL format.</strong></span></div></div>';
+         '<div class="row mb-3"><label for="height" class="col-sm-2 col-form-label">Height (CM)</label><div class="col-sm-8"><input type="number" step="0.01" class="form-control" id="height" name="height" placeholder="0.00" required></div></div><div class="row mb-3"><label for="width" class="col-sm-2 col-form-label">Width (CM)</label><div class="col-sm-8"><input type="number" step="0.01" class="form-control" id="width" name="width" placeholder="0.00" required></div></div><div class="row mb-3"><label for="length" class="col-sm-2 col-form-label">Length (CM)</label><div class="col-sm-8"><input type="number" step="0.01" class="form-control" id="length" name="length" placeholder="0.00" required><span><strong>Please, provide dimesions in HxWxL format.</strong></span></div></div>';
       },
       book: () => {
-        document.getElementById("inputContainer").innerHTML = '<div class="row mb-3"><label for="weight" class="col-sm-2 col-form-label">Weight (KG)</label><div class="col-sm-8"><input type="number" class="form-control" id="weight" placeholder="0.00" required><span><strong>Please, provide weight in KG.</strong></span></div></div>';
+        document.getElementById("inputContainer").innerHTML = '<div class="row mb-3"><label for="weight" class="col-sm-2 col-form-label">Weight (KG)</label><div class="col-sm-8"><input type="number" class="form-control" id="weight" name="weight" placeholder="0.00" required><span><strong>Please, provide weight in KG.</strong></span></div></div>';
       },
       none: () => {
         document.getElementById("inputContainer").innerHTML = '<div class="hidden"></div>';
