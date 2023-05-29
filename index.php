@@ -156,7 +156,7 @@ $products = Product::all();
             });
 
             console.log(dataArr)
-
+            // teste
             // Enviar uma solicitação AJAX para deleteProdutos.php
             $.ajax({
                 cache: false,
