@@ -1,7 +1,6 @@
 <?php
     require_once  __DIR__ . '/../inc/DataBase.php';
 
-
     $result = "";
 
     if(isset($_GET['sku_consult'])){
