@@ -29,15 +29,14 @@ class DVD extends Product {
   }
 
   public function save(){
-    $db = new DataBase();
+
         $data = array(
-          'sku' => $this->getSKU(),
-          'name' => $this->getName(),
-          'price' => $this->getPrice(),
-          'type' => $this->getType(),
-          'size' => $this->getSize(),
+            'sku' => $this->getSKU(),
+            'name' => $this->getName(),
+            'price' => $this->getPrice(),
+            'type' => $this->getType(),
+            'size' => $this->getSize(),
          );
-        $db->save('dvd', $data);
-        $db->closeConnection();
+        Database::store('product', $data);
     }
 }

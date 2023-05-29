@@ -1,8 +1,8 @@
 <?php
 // database.php
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 class Database {
 
     private $conn;
@@ -30,30 +30,6 @@ class Database {
         return $this->conn;
     }
 
-
-    public function executeQuery($query, $params = []) {
-        $stmt = $this->conn->prepare($query);
-        if (!$stmt) {
-            die("Prepare failed: " . $this->conn->error);
-        }
-
-        if (!empty($params)) {
-            $stmt->bind_param(...$params);
-        }
-
-        $stmt->execute();
-
-        if ($stmt->error) {
-            die("Execution failed: " . $stmt->error);
-        }
-
-        $result = $stmt->get_result();
-
-        $stmt->close();
-
-        return $result;
-    }
-
     public function closeConnection() {
         $this->conn->close();
     }
@@ -66,43 +42,133 @@ class Database {
         }
     }
 
-    public function save($table, $data) {
+    public static function removeProducts( $table = null, $ids=null ) {
 
-            $columns = $values = null;
+        $db = new self();
+        // var_dump($ids);
+        // die();
 
-            foreach ($data as $key => $value) {
-                $columns .= trim($key, "'") . ",";
-                if ($data[$key] == '') {
-                    $values .= "NULL,";
-                } else {
-                    $values .= "'$value',";
-                }
+        try {
+        if ($ids) {
+            foreach($ids as $id){
+                // $id = intval($item['id']);
+                $query = "DELETE FROM " . $table . " WHERE id = " . $id;
+                $update = $db->conn->prepare($query) or die($db->conn->error);
+                $update->execute();
+            }
+            //die;
+
+
+            if ($result = $db->conn->query($query)) {
+                $_SESSION['message'] = "Registro Removido com Sucesso.";
+                $_SESSION['type'] = 'success';
             }
 
-            $columns = rtrim($columns, ',');
-            $values = rtrim($values, ',');
-            $sql = "INSERT INTO $table($columns) VALUES ($values);";
+        }
 
-            try {
-                if ($table) {
-                    if ($this->conn->query($sql)) {
-                        $_SESSION['message'] = 'Registro cadastrado com sucesso.';
-                        $_SESSION['type'] = 'success';
-                    } else {
-                        // $_SESSION['message'] = generateError(mysqli_errno($this->conn));
-                        $_SESSION['type'] = 'danger';
-                    }
+        } catch (Exception $e) {
+            $_SESSION['message'] = $e->GetMessage();
+            $_SESSION['type'] = 'danger';
+        }
+
+        $db->closeConnection();
+    }
+
+
+    public static function store($table, $data) {
+
+        $db = new self();
+        $columns = $values = null;
+
+        foreach ($data as $key => $value) {
+            $columns .= trim($key, "'") . ",";
+            if ($data[$key] == '') {
+                $values .= "NULL,";
+            } else {
+                $values .= "'$value',";
+            }
+        }
+
+        $columns = rtrim($columns, ',');
+        $values = rtrim($values, ',');
+        $sql = "INSERT INTO $table($columns) VALUES ($values);";
+
+        try {
+            if ($table) {
+                if ($db->conn->query($sql)) {
+                    $_SESSION['message'] = 'Registro cadastrado com sucesso.';
+                    $_SESSION['type'] = 'success';
                 } else {
                     // $_SESSION['message'] = generateError(mysqli_errno($this->conn));
                     $_SESSION['type'] = 'danger';
                 }
-            } catch (Exception $e) {
-                $_SESSION['message'] = strval($e);
+            } else {
+                // $_SESSION['message'] = generateError(mysqli_errno($this->conn));
                 $_SESSION['type'] = 'danger';
             }
-
-            $return = $this->conn->insert_id;
-            return $return;
+        } catch (Exception $e) {
+            $_SESSION['message'] = strval($e);
+            $_SESSION['type'] = 'danger';
         }
+
+        $return = $db->conn->insert_id;
+        $db->closeConnection();
+        return $return;
+    }
+
+    public static function all($table = null){
+        $db = new self();
+        $found = null;
+        try {
+            $sql = "SELECT * FROM $table ORDER BY id DESC";
+            $result = $db->conn->query($sql);
+            if ($result->num_rows > 0) {
+                $found = $result->fetch_all(MYSQLI_ASSOC);
+            }
+
+        } catch (Exception $e) {
+            $_SESSION['message'] = $e->GetMessage();
+            $_SESSION['type'] = 'danger';
+        }
+        $db->closeConnection();
+        return $found;
+    }
+
+    public static function find($table = null, $column = null, $field = null){
+        $db = new self();
+        $found = null;
+        try {
+            $sql = "SELECT * FROM $table WHERE $column = '$field'";
+            $result = $db->conn->query($sql);
+            if ($result->num_rows > 0) {
+                $found = $result->fetch_all(MYSQLI_ASSOC);
+            }
+
+        } catch (Exception $e) {
+            $_SESSION['message'] = $e->GetMessage();
+            $_SESSION['type'] = 'danger';
+        }
+        $db->closeConnection();
+        return $found;
+    }
+
+    public static function executeQuery($sql = null, $all = true) {
+        $db = new self();
+        $found = null;
+        try {
+            if(isset($sql)){
+                $result = $db->conn->query($sql);
+                if($result->num_rows > 0)
+                    $found = ($all ? $result->fetch_all(MYSQLI_ASSOC) : $result->fetch_assoc());
+            }
+        } catch (Exception $e) {
+        $_SESSION['message'] = $e->GetMessage();
+        $_SESSION['type'] = 'danger';
+        }
+
+        $db->closeConnection();
+        return $found;
+    }
+
 
 }

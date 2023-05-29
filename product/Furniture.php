@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 require_once 'Product.php';
 require_once '../inc/DataBase.php';
@@ -59,17 +61,16 @@ class Furniture extends Product {
 
     // Save method
     public function save(){
-        $db = new DataBase();
+
         $data = array(
-          'sku' => $this->getSKU(),
-          'name' => $this->getName(),
-          'price' => $this->getPrice(),
-          'type' => $this->getType(),
-          'height' => $this->getHeight(),
-          'width' => $this->getWidth(),
-          'length' => $this->getLength()
+            'sku' => $this->getSKU(),
+            'name' => $this->getName(),
+            'price' => $this->getPrice(),
+            'type' => $this->getType(),
+            'height' => $this->getHeight(),
+            'width' => $this->getWidth(),
+            'length' => $this->getLength()
          );
-        $db->save('furniture', $data);
-        $db->closeConnection();
+        Database::store('product', $data);
     }
 }
