@@ -1,8 +1,11 @@
 <?php
 // database.php
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+// ini_set('display_errors', 0);
+// ini_set('display_startup_errors', 0);
+// error_reporting(0);
 class Database {
 
     private $conn;
@@ -42,7 +45,7 @@ class Database {
         }
     }
 
-    public static function removeProducts( $table = null, $ids=null ) {
+    public static function remove( $table = null, $ids=null ) {
 
         $db = new self();
         // var_dump($ids);
@@ -116,7 +119,7 @@ class Database {
         return $return;
     }
 
-    public static function all($table = null){
+    public static function get($table = null){
         $db = new self();
         $found = null;
         try {
@@ -170,5 +173,9 @@ class Database {
         return $found;
     }
 
+    public static function findSKU($sku){
+        return self::executeQuery("SELECT sku FROM products WHERE sku = '" . $sku ."'");
+
+    }
 
 }

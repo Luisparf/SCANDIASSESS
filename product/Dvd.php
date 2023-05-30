@@ -37,6 +37,6 @@ class DVD extends Product {
             'type' => $this->getType(),
             'size' => $this->getSize(),
          );
-        Database::store('product', $data);
+        Database::store('products', $data);
     }
 }

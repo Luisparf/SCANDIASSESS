@@ -42,7 +42,7 @@ class Book extends Product {
             'type' => $this->getType(),
             'weight' => $this->getWeight(),
         );
-        Database::store('product', $data);
+        Database::store('products', $data);
 
     }
 }

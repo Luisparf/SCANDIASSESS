@@ -62,9 +62,13 @@
 
 <body>
 
-    <?php
+<?php
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 require_once 'product/Product.php';
 $products = Product::all();
+// var_dump($products);
 ?>
 
     <main id="main" class="main">
@@ -160,7 +164,7 @@ $products = Product::all();
             // Enviar uma solicitação AJAX para deleteProdutos.php
             $.ajax({
                 cache: false,
-                url: 'product/deleteProducts.php',
+                url: 'product/massDelete.php',
                 method: 'POST',
                 data: { dataArr: dataArr },
                 success: function (response) {

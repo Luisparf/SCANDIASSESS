@@ -220,7 +220,7 @@
     $("#sku").blur(function() {
             let sku = $("#sku").val();
 
-            $.get("getSKU.php?sku_consult=" + sku,
+            $.get("validateSKU.php?sku_consult=" + sku,
                 function(data, status){
                     if(data == "true"){
                         alert("The Sku: " + sku + " is already used. Please contact administration.");

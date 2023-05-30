@@ -142,7 +142,7 @@ $products = Product::all();
         // Enviar uma solicitação AJAX para deleteProdutos.php
         $.ajax({
             cache: false,
-            url: 'product/deleteProducts.php',
+            url: 'product/massDelete.php',
             method: 'POST',
             data: { dataArr: dataArr },
             success: function(response) {
