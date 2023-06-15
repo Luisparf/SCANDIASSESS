@@ -227,7 +227,7 @@ error_reporting(E_ALL);
 
             });
     });
-//
+//pu
     $("#sku").blur(function() {
             let sku = $("#sku").val();
 
