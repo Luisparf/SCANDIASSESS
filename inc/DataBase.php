@@ -1,8 +1,8 @@
 <?php
-// database.php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// // database.php
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 // ini_set('display_errors', 0);
 // ini_set('display_startup_errors', 0);
 // error_reporting(0);
@@ -15,10 +15,8 @@ class Database {
     const DB_HOST = 'localhost';
 
     public function __construct() {
-
         try {
             $this->conn = new mysqli(self::DB_HOST, self::DB_USER, self::DB_PASSWORD, self::DB_NAME);
-
             if ($this->conn->connect_error) {
                 echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
                 return null;
@@ -26,7 +24,6 @@ class Database {
         } catch (Exception $e) {
             echo $e->getMessage();
         }
-
     }
 
     public function getConnection() {
@@ -46,37 +43,27 @@ class Database {
     }
 
     public static function remove( $table = null, $ids=null ) {
-
         $db = new self();
-        // var_dump($ids);
-        // die();
-
         try {
-        if ($ids) {
-            foreach($ids as $id){
-                // $id = intval($item['id']);
-                $query = "DELETE FROM " . $table . " WHERE id = " . $id;
-                $update = $db->conn->prepare($query) or die($db->conn->error);
-                $update->execute();
+            if ($ids) {
+                foreach($ids as $id){
+                    // $id = intval($item['id']);
+                    $query = "DELETE FROM " . $table . " WHERE id = " . $id;
+                    $update = $db->conn->prepare($query) or die($db->conn->error);
+                    $update->execute();
+                }
+                //die;
+                if ($result = $db->conn->query($query)) {
+                    $_SESSION['message'] = "Register removed successfully";
+                    $_SESSION['type'] = 'success';
+                }
             }
-            //die;
-
-
-            if ($result = $db->conn->query($query)) {
-                $_SESSION['message'] = "Registro Removido com Sucesso.";
-                $_SESSION['type'] = 'success';
-            }
-
-        }
-
-        } catch (Exception $e) {
+        }catch (Exception $e) {
             $_SESSION['message'] = $e->GetMessage();
             $_SESSION['type'] = 'danger';
         }
-
         $db->closeConnection();
     }
-
 
     public static function store($table, $data) {
 
@@ -91,7 +78,6 @@ class Database {
                 $values .= "'$value',";
             }
         }
-
         $columns = rtrim($columns, ',');
         $values = rtrim($values, ',');
         $sql = "INSERT INTO $table($columns) VALUES ($values);";
@@ -99,7 +85,7 @@ class Database {
         try {
             if ($table) {
                 if ($db->conn->query($sql)) {
-                    $_SESSION['message'] = 'Registro cadastrado com sucesso.';
+                    $_SESSION['message'] = 'Register stored succesfully.';
                     $_SESSION['type'] = 'success';
                 } else {
                     // $_SESSION['message'] = generateError(mysqli_errno($this->conn));
@@ -146,7 +132,6 @@ class Database {
             if ($result->num_rows > 0) {
                 $found = $result->fetch_all(MYSQLI_ASSOC);
             }
-
         } catch (Exception $e) {
             $_SESSION['message'] = $e->GetMessage();
             $_SESSION['type'] = 'danger';
@@ -165,8 +150,8 @@ class Database {
                     $found = ($all ? $result->fetch_all(MYSQLI_ASSOC) : $result->fetch_assoc());
             }
         } catch (Exception $e) {
-        $_SESSION['message'] = $e->GetMessage();
-        $_SESSION['type'] = 'danger';
+            $_SESSION['message'] = $e->GetMessage();
+            $_SESSION['type'] = 'danger';
         }
 
         $db->closeConnection();
@@ -174,8 +159,9 @@ class Database {
     }
 
     public static function findSKU($sku){
+            // var_dump($sku);
+            // die();
         return self::executeQuery("SELECT sku FROM products WHERE sku = '" . $sku ."'");
-
     }
 
 }

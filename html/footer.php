@@ -31,7 +31,7 @@
     <script src="../assets/js/sb-admin.js"></script>
     <script rel="preload" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script> 
     
-    <!-- <script src="../assets/js/jquery.dataTables.min.js"></script>-->
+    <script src="../assets/js/jquery.dataTables.min.js"></script>
 
     <script src="../assets/js/dataTables.bootstrap.min.js?v=1"></script>
     <script src="../assets/js/jquery.canvasjs.min.js"></script>
@@ -40,7 +40,7 @@
       
     <!-- Template Main JS File -->
 
-    <!-- <script src="../assets/js/main.js"></script>-->
+    <script src="../assets/js/main.js"></script>
     <script src="../assets/js/sweetalert2.min.js"></script> 
 
   

@@ -84,7 +84,7 @@ $products = Product::all();
                 </nav>
             </div>
             <div class="col align-end">
-                <a href="product/add.php">
+                <a href="product/addProduct.php">
                     <button type="button" class="btn btn-primary">Add</button>
                 </a>
                 <button class="btn btn-primary" id="delete-product-btn">Mass Delete</button>

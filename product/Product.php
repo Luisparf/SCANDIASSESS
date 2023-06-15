@@ -1,9 +1,10 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
 require_once  __DIR__ . '/../inc/DataBase.php';
+
 
 
 abstract class Product {
@@ -45,9 +46,11 @@ abstract class Product {
         return $this->type;
     }
 
-    public static function validateSKU($sku){
+    public static function exists($sku) {
         return Database::findSKU($sku);
+        
     }
+
 
     public static function massDelete($data){
         Database::remove('products', $data);
@@ -55,13 +58,8 @@ abstract class Product {
 
 
     public static function all(){
-        // $db = Database::get('products');
-        // var_dump($db);
-        // die();
         return  Database::get('products');
     }
-
-
 
     public function displayProductDetails() {
         echo "Product Name: " . $this->getName() . "<br>";
