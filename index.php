@@ -85,7 +85,7 @@ $path = "src/app/";
                 </nav>
             </div>
             <div class="col align-end">
-                <a href="<?  $path; ?>Product/addProduct.php">
+                <a href="<?=  $path; ?>Product/addProduct.php">
                     <button type="button" class="btn btn-primary">Add</button>
                 </a>
                 <button class="btn btn-primary" id="delete-product-btn">Mass Delete</button>

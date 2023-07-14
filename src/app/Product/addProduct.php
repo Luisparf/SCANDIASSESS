@@ -16,8 +16,8 @@ error_reporting(E_ALL);
 
 
   <!-- Favicons -->
-  <link href="../assets/img/favicon.png" rel="icon">
-  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="../../../assets/img/favicon.png" rel="icon">
+  <link href="../../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -26,26 +26,26 @@ error_reporting(E_ALL);
     rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="../assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="../assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
-  <link href="../assets/css/sweetalert2.min.css" rel="stylesheet">
-  <link href="../assets/css/sweetalert.css" rel="stylesheet">
+  <link href="../../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="../../../assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="../../../assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="../../../assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="../../../assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="../../../assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link href="../../../assets/css/sweetalert2.min.css" rel="stylesheet">
+  <link href="../../../assets/css/sweetalert.css" rel="stylesheet">
 
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 
   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">  estilo tabela -->
 
-  <link rel="stylesheet" href="../assets/css/toastr.min.css">
+  <link rel="stylesheet" href="../../../assets/css/toastr.min.css">
 
   <!-- <link href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" rel="stylesheet" > -->
 
-  <link rel="stylesheet" href="../assets/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="../../../assets/css/jquery.dataTables.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
@@ -53,12 +53,12 @@ error_reporting(E_ALL);
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.min.js"></script>
-  <script src="../assets/vendor/tinymce/tinymce.js"></script>
+  <script src="../../../assets/vendor/tinymce/tinymce.js"></script>
 
 
 
   <!-- Template Main CSS File -->
-  <link href="../assets/css/style.css" rel="stylesheet">
+  <link href="../../../assets/css/style.css" rel="stylesheet">
 
 </head>
 
@@ -75,14 +75,14 @@ error_reporting(E_ALL);
         <h1>Product Add</h1>
         <nav>
           <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="../index.php">Start</a></li>
+            <li class="breadcrumb-item"><a href="../../../index.php">Start</a></li>
             <li class="breadcrumb-item active">Product Add</li>
           </ol>
         </nav>
       </div>
       <div class="col align-end">
         <button id="saveBtn"  class="btn btn-primary">Save</button>
-        <a href="../index.php">
+        <a href="../../../index.php">
           <button type="button" class="btn btn-primary" id="delete-product-btn">Cancel</button>
         </a>
       </div>
@@ -147,7 +147,7 @@ error_reporting(E_ALL);
 
 
     </section>
-    <?php include "../html/footer.php" ?>
+    <?php include "../../../html/footer.php" ?>
 
 
   </main><!-- End #main -->
@@ -208,13 +208,13 @@ error_reporting(E_ALL);
 
 
                 $.ajax({
-                    url: 'createProduct.php',
+                    url: 'Product/create',
                     type: 'POST', // or 'GET' depending on your server-side implementation
                     data: formData,
                     success: function(data) {
                         // Handle the response from the server
                         console.log('successo' + data   );
-                        window.location.replace('../index.php')
+                        window.location.replace('../../../index.php')
                     },
                     error: function(xhr, status, error) {
                         // Handle the error
