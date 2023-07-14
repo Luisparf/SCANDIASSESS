@@ -85,16 +85,16 @@ $path = "src/app/";
                 </nav>
             </div>
             <div class="col align-end">
-                <a href="<?=  $path; ?>Product/addProduct.php">
+                <a href="<?= $path; ?>Product/addProduct.php">
                     <button type="button" class="btn btn-primary">Add</button>
                 </a>
                 <button class="btn btn-primary" id="delete-product-btn">Mass Delete</button>
             </div>
         </div>
+<div class="line" style="margin-bottom: 0;"></div>
 
-        <div class="line"></div>
 
-        <section class="section">
+        <section class="section"  style="padding-top: 0px;">
             <div>
                 <div class="row">
                     <?php if (empty($products)) : ?>
