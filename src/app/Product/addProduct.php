@@ -213,10 +213,8 @@ error_reporting(E_ALL);
                     data: formData,
                     success: function(data) {
                         // Handle the response from the server
-                        console.log('successo' + response);
-                         
-                        // window.location.replace('../index.php')
-
+                        console.log('successo' + data   );
+                        window.location.replace('../index.php')
                     },
                     error: function(xhr, status, error) {
                         // Handle the error

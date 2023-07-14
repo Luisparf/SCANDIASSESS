@@ -3,9 +3,9 @@
 // ini_set('display_startup_errors', 1);
 // error_reporting(E_ALL);
 
-require_once  __DIR__ . '/../inc/DataBase.php';
+namespace App\Product;
 
-
+use App\Database\Database;
 
 abstract class Product {
     protected $sku;
@@ -46,14 +46,13 @@ abstract class Product {
         return $this->type;
     }
 
+    public function massDelete($products){
+        Database::remove('products', $products);
+    }
+
     public static function exists($sku) {
         return Database::findSKU($sku);
         
-    }
-
-
-    public static function massDelete($data){
-        Database::remove('products', $data);
     }
 
 

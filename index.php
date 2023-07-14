@@ -1,5 +1,15 @@
-<!DOCTYPE html>
+<?php
+require_once 'vendor/autoload.php';
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
+// use App\Product\Product;
 
+$products =  App\Product\Product::all();
+// var_dump($products);
+
+$path = "src/app/";
+?>
 
 <html lang="pt-br">
 
@@ -62,15 +72,6 @@
 
 <body>
 
-<?php
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
-require_once 'product/Product.php';
-$products = Product::all();
-// var_dump($products);
-?>
-
     <main id="main" class="main">
 
         <div class="row align-items-center">
@@ -84,7 +85,7 @@ $products = Product::all();
                 </nav>
             </div>
             <div class="col align-end">
-                <a href="product/addProduct.php">
+                <a href="<?  $path; ?>Product/addProduct.php">
                     <button type="button" class="btn btn-primary">Add</button>
                 </a>
                 <button class="btn btn-primary" id="delete-product-btn">Mass Delete</button>
@@ -164,7 +165,7 @@ $products = Product::all();
             // Enviar uma solicitação AJAX para deleteProdutos.php
             $.ajax({
                 cache: false,
-                url: 'product/massDelete.php',
+                url: 'app/src/Product/ProductDeleter.php',
                 method: 'POST',
                 data: { dataArr: dataArr },
                 success: function (response) {

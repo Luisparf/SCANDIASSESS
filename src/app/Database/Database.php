@@ -1,11 +1,6 @@
 <?php
-// // database.php
-// ini_set('display_errors', 1);
-// ini_set('display_startup_errors', 1);
-// error_reporting(E_ALL);
-// ini_set('display_errors', 0);
-// ini_set('display_startup_errors', 0);
-// error_reporting(0);
+namespace App\Database;
+
 class Database {
 
     private $conn;
@@ -16,7 +11,7 @@ class Database {
 
     public function __construct() {
         try {
-            $this->conn = new mysqli(self::DB_HOST, self::DB_USER, self::DB_PASSWORD, self::DB_NAME);
+            $this->conn = new \mysqli(self::DB_HOST, self::DB_USER, self::DB_PASSWORD, self::DB_NAME);
             if ($this->conn->connect_error) {
                 echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
                 return null;
